@@ -37,7 +37,7 @@ def post_article():
     title = og_title['content']  # 태그의 속성값을 가져오기 (참고 : <meta property="og:title" content="집중호우 특별재난지역, 6개월간 전파사용료 면제">)
     og_image = soup.select_one('meta[property="og:image"]')
     image = og_image['content']
-    og_desc = soup.select_one('meta[property="og:desc"]')
+    og_desc = soup.select_one('meta[property="og:description"]')
     desc = og_desc['content']
 
     # 3. mongoDB에 데이터 넣기
