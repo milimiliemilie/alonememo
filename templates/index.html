@@ -62,7 +62,7 @@
         }
 
         function postArticle() {
-            // 1. url, comment를 jQuery로 가져오기. ('#...') 이런거엿나
+            // 1. url, comment를 jQuery로 가져오기. ('#...') 이런거엿나 ㅇㅇ
             // 1-1 url, comment 정보가 있는 태그 찾기.
             // 1-2 위 태그의 id 찾기 : post-url, post-comment
             // 1-3 jQuery로 id 이용해 태그 가져오기. (jQuery가 머하는 거더라?)
@@ -75,7 +75,7 @@
                 data: {
                     'url_give': url,
                     'comment_give': comment
-                }, // 2. data 딕셔너리 만들기.
+                }, // 2. data 딕셔너리 만들기. ==> 읽는 작업이 아니라, 갖다 넣는 작업이당.
                 success: function (response) { // 성공하면
                     if (response["result"] == "success") {
                         // 3. 성공하면 .. 화면을 다시 로딩하기.
@@ -94,13 +94,65 @@
                 data: {},
                 success: function (response) {
                     if (response["result"] == "success") {
-                        alert(response["msg"]);
+                        var articles = response['articles']
+                        for (let i = 0; i < articles.length; i++) {
+                            var article = articles[i];
+
+                            var title = article['title'];
+                            var comment = article['comment'];
+                            var description = article['description'];
+                            var url = article['url'];
+                            var image_url = article['image_url'];
+
+                            var tempHtml = `
+        <div class="card">
+            <img class="card-img-top"
+                 src="${image_url}"
+                 alt="Card image cap">
+            <div class="card-body">
+                <a href="${url}" class="card-title">${title}</a>
+                <p class="card-text">${description}</p>
+                <p class="card-text comment">${comment}</p>
+            </div>
+        </div>
+                            `
+                            $('#cards-box').append(tempHtml);
+                        }
+
+        //                 var data = response['articles'];
+        //                 // backtick을 만들어서... temp_html을 append 하면 되겟다..
+        //                 for (let i = 0; i < data.length; i++) {
+        //                     var article = data[i];
+        //
+        //                     var image = article['image'];
+        //                     var title = article['title'];
+        //                     var description = article['description'];
+        //                     var comment = article['comment'];
+        //                     var url = article['url'];
+        //
+        //                     var temp_html = `
+        // <div class="card">
+        //     <img class="card-img-top"
+        //          src=${image}
+        //          alt="Card image cap">
+        //     <div class="card-body">
+        //         <a href="${url}" class="card-title">${title}</a>
+        //         <p class="card-text">${description}</p>
+        //         <p class="card-text comment">${comment}</p>
+        //     </div>
+        // </div>
+        //                 `
+        //                     $('cards-box').append(temp_html)
+        //
+
+                        }
                     }
-                }
-            })
+                })
         }
 
         function makeCard(url, title, desc, comment, image) {
+
+
         }
     </script>
 </head>
